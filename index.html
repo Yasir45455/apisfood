@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food API Documentation</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  header {
+    background-color: #ff6f61;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+  }
+  main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h2 {
+    color: #ff6f61;
+    margin-top: 2rem;
+    border-bottom: 2px solid #ff6f61;
+    padding-bottom: 0.3rem;
+  }
+  h3 {
+    color: #444;
+    margin-top: 1.5rem;
+  }
+  pre {
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+  }
+  code {
+    font-family: 'Courier New', Courier, monospace;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  .endpoint {
+    background-color: #fff3f0;
+    border-left: 6px solid #ff6f61;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+  }
+  .method-get { color: #4caf50; font-weight: bold; }
+  .method-post { color: #2196f3; font-weight: bold; }
+  .method-put { color: #ff9800; font-weight: bold; }
+  .method-delete { color: #f44336; font-weight: bold; }
+  .parameter, .response {
+    margin-left: 1rem;
+  }
+  .parameter p, .response p {
+    margin: 0.3rem 0;
+  }
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Food API</h1>
+  <p>API documentation for the Food App | Version 1.0.0</p>
+  <p>Server: <a href="https://food-psi-sand.vercel.app" style="color:white; text-decoration: underline;">https://food-psi-sand.vercel.app</a></p>
+</header>
+
+<main>
+
+<section>
+  <h2>/products</h2>
+
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get all products
+    <div class="response">
+      <p><strong>200:</strong> List of products</p>
+      <pre><code>[
+  {
+    "_id": "product_id",
+    "name": "Grilled Fish & Chips",
+    "price": 18,
+    "category": "Fish & Chips",
+    "subCategory": "",
+    "shortDescription": "Delicious grilled fish served with crispy chips"
+  }
+]</code></pre>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <span class="method-post">POST</span> Add a new product
+    <div class="parameter">
+      <p><strong>Request Body:</strong></p>
+      <pre><code>{
+  "name": "Grilled Fish & Chips",
+  "price": 18,
+  "category": "Fish & Chips",
+  "subCategory": "",
+  "shortDescription": "Delicious grilled fish served with crispy chips"
+}</code></pre>
+    </div>
+    <div class="response">
+      <p><strong>201:</strong> Product created successfully</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>/products/{id}</h2>
+
+  <div class="endpoint">
+    <span class="method-put">PUT</span> Edit product by ID
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> id (string, required)</p>
+      <p><strong>Request Body:</strong></p>
+      <pre><code>{
+  "name": "Edited Fish & Chips",
+  "price": 20,
+  "category": "Fish & Chips",
+  "subCategory": "",
+  "shortDescription": "Delicious grilled fish with extra spices"
+}</code></pre>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> Product updated successfully</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <span class="method-delete">DELETE</span> Delete product by ID
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> id (string, required)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> Product deleted successfully</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>/category</h2>
+
+  <div class="endpoint">
+    <span class="method-post">POST</span> Add a new category
+    <div class="parameter">
+      <pre><code>{
+  "name": "Fish & Chips"
+}</code></pre>
+    </div>
+    <div class="response">
+      <p><strong>201:</strong> Category added successfully</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>/category/add-sub-category</h2>
+
+  <div class="endpoint">
+    <span class="method-post">POST</span> Add a new subcategory
+    <div class="parameter">
+      <pre><code>{
+  "name": "Fried Fish",
+  "cat": "651e3f8a1c1234567890abcd"
+}</code></pre>
+    </div>
+    <div class="response">
+      <p><strong>201:</strong> Subcategory added successfully</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>/category/get</h2>
+
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get categories with subcategories
+    <div class="response">
+      <pre><code>{
+  "cats": [
+    {"_id": "651e3f8a1c1234567890abcd", "name": "Fish & Chips", "__v": 0},
+    {"_id": "651e3f8a1c1234567890abce", "name": "Burgers", "__v": 0}
+  ],
+  "subCats": {
+    "Fish & Chips": [{"_id": "651e3f8a1c1234567890abcf", "name": "Fried Fish", "category": "Fish & Chips", "__v": 0}],
+    "Burgers": []
+  }
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Add remaining endpoints similarly -->
+<p style="color: #777; margin-top: 2rem;">...Other endpoints like /cart, /address, /orders follow same structure...</p>
+
+</main>
+
+<footer>
+  &copy; 2025 Food API Documentation
+</footer>
+
+</body>
+</html>
