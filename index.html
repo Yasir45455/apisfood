@@ -88,6 +88,7 @@
 
 <main>
 
+<!-- /products -->
 <section>
   <h2>/products</h2>
 
@@ -126,6 +127,7 @@
   </div>
 </section>
 
+<!-- /products/{id} -->
 <section>
   <h2>/products/{id}</h2>
 
@@ -158,6 +160,7 @@
   </div>
 </section>
 
+<!-- /category -->
 <section>
   <h2>/category</h2>
 
@@ -174,6 +177,7 @@
   </div>
 </section>
 
+<!-- /category/add-sub-category -->
 <section>
   <h2>/category/add-sub-category</h2>
 
@@ -191,6 +195,7 @@
   </div>
 </section>
 
+<!-- /category/get -->
 <section>
   <h2>/category/get</h2>
 
@@ -203,7 +208,9 @@
     {"_id": "651e3f8a1c1234567890abce", "name": "Burgers", "__v": 0}
   ],
   "subCats": {
-    "Fish & Chips": [{"_id": "651e3f8a1c1234567890abcf", "name": "Fried Fish", "category": "Fish & Chips", "__v": 0}],
+    "Fish & Chips": [
+      {"_id": "651e3f8a1c1234567890abcf", "name": "Fried Fish", "category": "Fish & Chips", "__v": 0}
+    ],
     "Burgers": []
   }
 }</code></pre>
@@ -211,14 +218,198 @@
   </div>
 </section>
 
-<!-- Add remaining endpoints similarly -->
-<p style="color: #777; margin-top: 2rem;">...Other endpoints like /cart, /address, /orders follow same structure...</p>
+<!-- /cart/add-Prouct-to-cart/{product_id}/{quantity} -->
+<section>
+  <h2>/cart/add-Prouct-to-cart/{product_id}/{quantity}</h2>
+  <div class="endpoint">
+    <span class="method-post">POST</span> Add product to cart
+    <div class="parameter">
+      <p><strong>Path Parameters:</strong> product_id (string), quantity (integer)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> Product added to cart</p>
+      <pre><code>{
+  "cart": {
+    "_id": "651e4f8a1c1234567890abcd",
+    "guestId": "123e4567-e89b-12d3-a456-426614174000",
+    "products": [
+      {"product_ID": "651e3f8a1c1234567890abcd", "quantity": 2, "_id": "651e4f8a1c1234567890abce"}
+    ],
+    "__v": 0
+  },
+  "guestId": "123e4567-e89b-12d3-a456-426614174000"
+}</code></pre>
+    </div>
+  </div>
+</section>
 
-</main>
+<!-- /cart/get-cart/{guestId} -->
+<section>
+  <h2>/cart/get-cart/{guestId}</h2>
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get cart by guest ID
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> guestId (string)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> Cart details</p>
+      <pre><code>{
+  "_id": "651e4f8a1c1234567890abcd",
+  "guestId": "123e4567-e89b-12d3-a456-426614174000",
+  "products": [
+    {
+      "product_ID": {
+        "_id": "651e3f8a1c1234567890abcd",
+        "name": "Fish & Chips",
+        "description": "Chikn chips & chips",
+        "category": "Fish & Chips",
+        "subCategory": "Fried Fish",
+        "height": 10,
+        "width": 5,
+        "weight": 200,
+        "sku": "FC123",
+        "images": ["url1","url2"],
+        "price": 15
+      },
+      "quantity": 2,
+      "_id": "651e4f8a1c1234567890abce"
+    }
+  ],
+  "__v": 0
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- /cart/remove-product-from-cart/{product_id} -->
+<section>
+  <h2>/cart/remove-product-from-cart/{product_id}</h2>
+  <div class="endpoint">
+    <span class="method-delete">DELETE</span> Remove product from cart
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> product_id (string)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> Product removed from cart</p>
+      <pre><code>{
+  "_id": "651e4f8a1c1234567890abcd",
+  "guestId": "123e4567-e89b-12d3-a456-426614174000",
+  "products": [],
+  "__v": 0
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- /address/add-address -->
+<section>
+  <h2>/address/add-address</h2>
+  <div class="endpoint">
+    <span class="method-post">POST</span> Add a new address
+    <div class="parameter">
+      <p><strong>Request Body:</strong></p>
+      <pre><code>{
+  "guest_id": "123e4567-e89b-12d3-a456-426614174000",
+  "email": "user@example.com",
+  "house_no": "123",
+  "street": "Main Street",
+  "city": "New York",
+  "postcode": "10001",
+  "instructions": "Leave at the doorstep",
+  "appartment_name": "Green Apartments",
+  "floor": "3",
+  "building_name": "Sunrise Building",
+  "entry_code": "4567",
+  "business_name": "Tech Corp",
+  "hotel_name": "Grand Hotel",
+  "business": false
+}</code></pre>
+    </div>
+    <div class="response">
+      <p><strong>201:</strong> Address added successfully</p>
+    </div>
+  </div>
+</section>
+
+<!-- /address/get-address/{user_id} -->
+<section>
+  <h2>/address/get-address/{user_id}</h2>
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get addresses by user ID
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> user_id (string)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> List of addresses</p>
+    </div>
+  </div>
+</section>
+
+<!-- /address/get-address/guest/{guest_id} -->
+<section>
+  <h2>/address/get-address/guest/{guest_id}</h2>
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get addresses by guest ID
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> guest_id (string)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> List of addresses</p>
+    </div>
+  </div>
+</section>
+
+<!-- /orders/create -->
+<section>
+  <h2>/orders/create</h2>
+  <div class="endpoint">
+    <span class="method-post">POST</span> Create a new order
+    <div class="parameter">
+      <p><strong>Request Body:</strong></p>
+      <pre><code>{
+  "address_id": "651e5f8a1c1234567890abcd",
+  "products": [
+    {"product_ID": "651e3f8a1c1234567890abcd", "quantity": 2},
+    {"product_ID": "651e3f8a1c1234567890abce", "quantity": 1}
+  ],
+  "total_with_tip": 50
+}</code></pre>
+    </div>
+    <div class="response">
+      <p><strong>201:</strong> Order created successfully</p>
+    </div>
+  </div>
+</section>
+
+<!-- /orders/{order_id} -->
+<section>
+  <h2>/orders/{order_id}</h2>
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get order by ID
+    <div class="parameter">
+      <p><strong>Path Parameter:</strong> order_id (string)</p>
+    </div>
+    <div class="response">
+      <p><strong>200:</strong> Order details</p>
+    </div>
+  </div>
+</section>
+
+<!-- /orders/list -->
+<section>
+  <h2>/orders/list</h2>
+  <div class="endpoint">
+    <span class="method-get">GET</span> Get all orders
+    <div class="response">
+      <p><strong>200:</strong> List of orders</p>
+    </div>
+  </div>
+</section>
 
 <footer>
   &copy; 2025 Food API Documentation
 </footer>
 
+</main>
 </body>
 </html>
